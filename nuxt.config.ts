@@ -20,11 +20,19 @@ export default defineNuxtConfig({
 
   // GitHub Pages deployment configuration
   nitro: {
-    preset: process.env.NITRO_PRESET || 'node-server'
+    preset: process.env.NITRO_PRESET === 'github_pages' ? 'github_pages' : 'node-server',
+    prerender: {
+      routes: ['/']
+    }
   },
 
   // Base URL for GitHub Pages (update with your repository name)
   app: {
     baseURL: process.env.NODE_ENV === 'production' ? '/nuxt-janus-challenge/' : '/'
+  },
+
+  // Ensure static generation works properly
+  experimental: {
+    payloadExtraction: false
   }
 })
